@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Instrument_Serif, Manrope } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
   title: "OffScript — Speak Without a Script",
-  description: "Practice speaking every day with unexpected topics. Research, think, speak, and build your communication confidence one challenge at a time.",
+  description:
+    "Practice speaking every day with unexpected topics. Research, think, speak, and build confidence one challenge at a time.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={`${spaceGrotesk.variable} ${geistMono.variable}`}><body>{children}</body></html>;
+  return (
+    <html lang="en" className={`${manrope.variable} ${instrumentSerif.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
 }
