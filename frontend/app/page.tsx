@@ -1,69 +1,14 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Brain, Lightbulb, Mic, Shuffle } from "lucide-react";
+import { BrandNav, Heatmap } from "@/components/offscript";
+
+type Step = [typeof Shuffle, string, string];
+const steps: Step[] = [[Shuffle, "Get a random topic", "Step out of your comfort zone. OffScript generates challenging prompts across different domains."], [Lightbulb, "Think & research", "Take a moment to structure your thoughts. Gather key points to form a coherent narrative."], [Mic, "Speak for 2 minutes", "Hit record. Practice articulating your ideas clearly and concisely without a safety net."]];
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  return <div className="hero-pattern min-h-screen"><BrandNav marketing/><main className="mx-auto flex w-full max-w-[1120px] flex-col items-center px-5 pb-24 pt-32 md:px-8">
+    <section className="flex max-w-3xl flex-col items-center gap-6 pt-12 text-center"><p className="text-xs font-bold uppercase tracking-[.18em] text-primary">A daily practice for clearer thinking</p><h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.08] tracking-tight text-[#191c1d]">Speak about something unexpected.<br/><span className="text-primary">Get better at speaking.</span></h1><p className="mt-2 max-w-2xl text-lg leading-8 text-[#464554]">A focused space for professionals and learners to practice impromptu communication. No scripts. Just you, a topic, and your thoughts.</p><div className="mt-4 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row"><Link href="/dashboard" className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-primary px-8 font-semibold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-[#2f2ebe]">Generate a topic <ArrowRight size={18}/></Link><a href="#framework" className="inline-flex h-14 items-center justify-center rounded-xl border border-[#464554] px-8 font-semibold text-[#191c1d] transition hover:bg-white">How it works</a></div></section>
+    <section id="preview" className="mt-20 grid w-full grid-cols-1 gap-6 md:grid-cols-12"><div className="bento-card relative overflow-hidden p-7 md:col-span-8 md:p-8"><div className="relative z-10 flex items-start justify-between"><div><span className="text-xs font-bold uppercase tracking-[.16em] text-primary">Today&apos;s challenge</span><h2 className="mt-3 max-w-lg text-2xl font-bold leading-tight md:text-3xl">Will AI replace programmers?</h2></div><Brain className="text-[#c0c6db]" size={34}/></div><div className="relative z-10 mt-12 flex items-center gap-4 rounded-lg border border-border bg-[#f3f4f5] p-4"><span className="flex size-12 items-center justify-center rounded-full bg-[#ffdad6] text-[#ba1a1a]"><Mic size={21} fill="currentColor"/></span><div><p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Ready to record</p><p className="font-semibold">02:00 target</p></div></div><div className="absolute -bottom-20 -right-20 size-64 rounded-full bg-[#c0c1ff] opacity-25 blur-3xl"/></div><div className="bento-card p-7 md:col-span-4 md:p-8"><h2 className="text-2xl font-bold">Consistency</h2><div className="mt-4 flex items-baseline gap-2"><span className="text-5xl font-bold text-primary">12</span><span className="text-muted-foreground">day streak</span></div><div className="mt-7"><Heatmap/></div></div></section>
+    <section id="framework" className="mt-24 w-full border-t border-border pt-12"><h2 className="mb-12 text-center text-3xl font-bold">A simple framework for clarity</h2><div className="grid grid-cols-1 gap-8 md:grid-cols-3">{steps.map(([StepIcon, title, copy], index) => <div key={index} className="flex flex-col items-center rounded-xl border border-transparent bg-background p-6 text-center transition hover:border-border hover:bg-white"><span className={`mb-6 flex size-16 items-center justify-center rounded-full ${index === 0 ? "bg-[#6063ee] text-white" : index === 1 ? "bg-secondary text-primary" : "bg-[#00885d] text-white"}`}><StepIcon size={29}/></span><h3 className="mb-2 text-xl font-semibold">{index + 1}. {title}</h3><p className="text-base leading-6 text-muted-foreground">{copy}</p></div>)}</div></section>
+  </main></div>;
 }
