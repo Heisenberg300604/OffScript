@@ -303,3 +303,19 @@ If someone who was previously uncomfortable speaking can open OffScript every da
 🚧 **Version 1 — In Development**
 
 The initial focus is on building and validating the core speaking-practice experience before expanding the product.
+
+## 🛠️ Tech Stack
+
+OffScript V1 is intentionally built with a simple, modern stack focused on **performance, SEO, maintainability, and fast development**.
+
+| Technology           | Purpose                                           |
+| -------------------- | ------------------------------------------------- |
+| **Next.js**          | Full-stack React framework, routing, SSR/SSG, SEO |
+| **TypeScript**       | Type-safe application development                 |
+| **Tailwind CSS**     | Styling and responsive UI                         |
+| **shadcn/ui**        | Reusable UI components                            |
+| **PostgreSQL**       | User, topic, challenge, and progress data         |
+| **Drizzle ORM**      | Type-safe database queries and schema management  |
+| **Vercel**           | Application deployment and hosting                |
+| **Neon**             | Serverless PostgreSQL hosting                     |
+| **YouTube Unlisted** | Optional video storage/progress archive           |
