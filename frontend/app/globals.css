@@ -642,8 +642,23 @@ button {
 
 @media (max-width: 820px) {
   .landing-hero {
-    min-height: 85vh;
-    background-position: 62% center;
+    min-height: 100svh;
+    height: 100svh;
+    background-image: url("/mobile-hero-img.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .landing-hero::after {
+    height: 15vh;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 15, 17, 0) 0%,
+      rgba(10, 15, 17, 0.08) 24%,
+      rgba(244, 241, 233, 0.68) 72%,
+      rgba(244, 241, 233, 1) 100%
+    );
   }
 
   .landing-nav {
