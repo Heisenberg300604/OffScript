@@ -93,10 +93,12 @@ button {
 
 .landing-hero {
   position: relative;
-  min-height: 92vh;
+  min-height: 100svh;
+  height: 100svh;
   background-image: url("/landing-new.png");
   background-size: cover;
   background-position: center right;
+  background-repeat: no-repeat;
   overflow: hidden;
   color: var(--landing-text);
 }
@@ -113,6 +115,24 @@ button {
     rgba(10, 15, 17, 0) 100%
   );
   z-index: 0;
+}
+
+.landing-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20vh;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 17, 0) 0%,
+    rgba(10, 15, 17, 0.06) 28%,
+    rgba(244, 241, 233, 0.76) 72%,
+    rgba(244, 241, 233, 1) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
 .landing-nav,
@@ -149,10 +169,11 @@ button {
 
 .landing-links a,
 .landing-signin {
-  color: var(--landing-muted);
+  color: rgba(245, 241, 231, 0.9);
   font-size: 0.76rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .landing-links a:hover,
