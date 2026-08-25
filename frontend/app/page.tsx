@@ -71,8 +71,7 @@ export default function Home() {
               <span className="headline-script">without a script.</span>
             </h1>
             <p className="landing-lede">
-              Get an unexpected topic. Think it through. Then speak about it for two
-              minutes — in your own words.
+              AI can give you the words, but Offscript makes you find your own. Get an unexpected topic, research the facts, and speak spontaneously for two minutes.
             </p>
             <div className="landing-hero-buttons">
               <Link href="/dashboard" className="landing-primary-cta">
@@ -95,17 +94,15 @@ export default function Home() {
         <section id="practice" className="landing-section idea-section">
           <p className="section-kicker">THE IDEA</p>
           <h2 className="editorial-heading">
-            <span>You don&apos;t need</span>
-            <span>another communication course.</span>
+            <span>We have never had more help finding the words.</span>
+            <span>Maybe that&apos;s why we should practice finding our own.</span>
           </h2>
-          <p className="idea-emphasis">You need to speak.</p>
+          <p className="idea-emphasis">Don&apos;t ask AI what to say. Find out what you think.</p>
           <p className="section-copy">
-            Most people want to become better communicators, but rarely practice
-            speaking when they don&apos;t already know exactly what to say.
+            When we constantly rely on AI to formulate our arguments, generate our presentations, and tell us what to say, we gradually lose the muscle of thinking on our feet.
             <br />
             <br />
-            OffScript gives you an unexpected topic and one simple challenge: think
-            about it, then speak.
+            Offscript gives you an unexpected topic and one simple rule: research the facts, form your own perspective, and speak for two minutes — in your own words.
           </p>
         </section>
 
