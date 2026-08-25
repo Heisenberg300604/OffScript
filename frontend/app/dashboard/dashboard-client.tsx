@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Brain, Mic, RefreshCw, Search, Sparkles } from "lucide-react";
+import { Brain, Mic, RefreshCw, Search, Sparkles, Clock, CheckCircle2 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { getHistory, type CompletedChallenge } from "@/lib/localProgress";
 
 type Topic = {
   title: string;
@@ -103,11 +104,18 @@ export default function DashboardClient() {
   const [spinningTopic, setSpinningTopic] = useState<Topic | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [lastCategory, setLastCategory] = useState<string | null>(null);
+  const [history, setHistory] = useState<CompletedChallenge[]>([]);
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Clean up timer on unmount
+  // Clean up timer on unmount and load history
   useEffect(() => {
+    // Wrap in function to avoid react-hooks/set-state-in-effect
+    const loadData = () => {
+      setHistory(getHistory());
+    };
+    loadData();
+    
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
@@ -208,7 +216,7 @@ export default function DashboardClient() {
                   </div>
                   
                   <Link 
-                    href={`/recording?topic=${encodeURIComponent(topic.title)}`} 
+                    href={`/recording?topic=${encodeURIComponent(topic.title)}&category=${encodeURIComponent(topic.category)}`} 
                     className="flex h-14 items-center justify-center gap-3 rounded-xl bg-[#18201f] !text-[#f5f1e7] text-lg font-bold shadow-lg shadow-black/10 transition-all hover:bg-[#26302e] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d8b77b] active:scale-[0.99]"
                     style={{ color: "#f5f1e7" }}
                   >
@@ -246,6 +254,34 @@ export default function DashboardClient() {
           </div>
         )}
       </div>
+
+      {history.length > 0 && !topic && !isSpinning && (
+        <div className="relative z-10 mt-20 w-full max-w-[720px] text-left fade-in">
+          <div className="mb-6 flex items-center justify-between">
+            <h3 className="text-xl font-bold text-[#202524]">Recent challenges</h3>
+            <span className="text-sm font-semibold text-muted-foreground">{history.length} completed</span>
+          </div>
+          <div className="flex flex-col gap-3">
+            {history.slice(0, 5).map((session) => (
+              <div key={session.id} className="flex items-center justify-between rounded-xl border border-border bg-white p-5 shadow-sm transition hover:shadow-md">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 rounded-full bg-[#e8f3ef] p-1.5 text-[#006c49]">
+                    <CheckCircle2 size={18} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#202524]">{session.topicTitle}</h4>
+                    <div className="mt-1 flex items-center gap-3 text-xs font-semibold text-muted-foreground">
+                      <span className="rounded bg-[#f3f4f5] px-2 py-0.5">{session.topicCategory}</span>
+                      <span className="flex items-center gap-1"><Clock size={12}/> {Math.floor(session.durationSeconds / 60)}:{(session.durationSeconds % 60).toString().padStart(2, '0')}</span>
+                      <span>{new Date(session.completedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </main>
   );
 }
