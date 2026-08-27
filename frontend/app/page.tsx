@@ -1,8 +1,6 @@
-"use client";
-
-import Link from "next/link";
-import { ArrowRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { auth } from "@clerk/nextjs/server";
+import { LandingCta } from "@/components/landing-cta";
+import { LandingHeader } from "@/components/landing-header";
 
 const steps = [
   ["01", "Get a topic", "Receive a prompt that takes you somewhere unfamiliar."],
@@ -11,55 +9,15 @@ const steps = [
   ["04", "Speak", "Put it into your own words. Keep going for two minutes."],
 ];
 
-export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
+export default async function Home() {
+  // Resolves on the server so the correct CTA ships in the initial HTML.
+  const { userId } = await auth();
+  const isSignedIn = Boolean(userId);
 
   return (
     <div className="offscript-landing">
       <section className="landing-hero">
-        <header className="landing-nav">
-          <Link href="/" className="landing-logo">
-            OFFSCRIPT
-          </Link>
-          <nav className="landing-links" aria-label="Main navigation">
-            <a href="#practice">Practice</a>
-            <a href="#progress">Progress</a>
-            <a href="#how-it-works">How it works</a>
-          </nav>
-          <div className="landing-actions">
-            <Link href="/dashboard" className="landing-signin">
-              Sign in
-            </Link>
-            <Link href="/dashboard" className="landing-nav-cta">
-              Get started <ArrowRight size={15} />
-            </Link>
-          </div>
-          <button
-            type="button"
-            className="landing-menu-button"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((current) => !current)}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </header>
-
-        {menuOpen && (
-          <nav className="landing-mobile-menu" aria-label="Mobile navigation">
-            <a href="#practice" onClick={() => setMenuOpen(false)}>
-              Practice
-            </a>
-            <a href="#progress" onClick={() => setMenuOpen(false)}>
-              Progress
-            </a>
-            <a href="#how-it-works" onClick={() => setMenuOpen(false)}>
-              How it works
-            </a>
-            <Link href="/dashboard" onClick={() => setMenuOpen(false)}>
-              Get started <ArrowRight size={15} />
-            </Link>
-          </nav>
-        )}
+        <LandingHeader isSignedIn={isSignedIn} />
 
         <div className="landing-hero-content">
           <div className="landing-hero-copy">
@@ -74,9 +32,11 @@ export default function Home() {
               AI can give you the words, but Offscript makes you find your own. Get an unexpected topic, research the facts, and speak spontaneously for two minutes.
             </p>
             <div className="landing-hero-buttons">
-              <Link href="/dashboard" className="landing-primary-cta">
-                Get a Topic <ArrowRight size={18} />
-              </Link>
+              <LandingCta
+                isSignedIn={isSignedIn}
+                className="landing-primary-cta"
+                signedOutLabel="Get a Topic"
+              />
               <a href="#how-it-works" className="landing-secondary-cta">
                 How it works
               </a>
@@ -157,7 +117,10 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="progress-panel">
+          {/* Illustrative only — not anybody's real activity. Real data lives
+              behind sign-in on /progress. */}
+          <div className="progress-panel" aria-label="Example progress panel">
+            <p className="example-tag">Example</p>
             <div className="progress-stats">
               <div>
                 <strong>🔥 14</strong>
@@ -174,7 +137,7 @@ export default function Home() {
             </div>
 
             <div className="heatmap-heading">
-              <span>Speaking Activity</span>
+              <span>Speaking Activity — example</span>
               <span>
                 Less <i className="heatmap-dot empty" /> <i className="heatmap-dot low" />
                 <i className="heatmap-dot mid" /> <i className="heatmap-dot high" /> More
@@ -222,9 +185,12 @@ export default function Home() {
             by thinking about it.
           </h2>
           <p>You speak.</p>
-          <Link href="/dashboard" className="landing-primary-cta">
-            Start practicing <ArrowRight size={18} />
-          </Link>
+          <LandingCta
+            isSignedIn={isSignedIn}
+            className="landing-primary-cta"
+            signedOutLabel="Start practicing"
+            signedInLabel="Back to your dashboard"
+          />
         </section>
       </main>
 
