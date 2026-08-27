@@ -122,12 +122,14 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 20vh;
+  /* Kept deliberately shallow so the hero photo stays visible; the cream only
+     takes over close to the section edge, where it has to meet the page. */
+  height: 14vh;
   background: linear-gradient(
     180deg,
     rgba(10, 15, 17, 0) 0%,
-    rgba(10, 15, 17, 0.06) 28%,
-    rgba(244, 241, 233, 0.76) 72%,
+    rgba(10, 15, 17, 0.04) 40%,
+    rgba(244, 241, 233, 0.45) 78%,
     rgba(244, 241, 233, 1) 100%
   );
   z-index: 0;
@@ -978,12 +980,12 @@ button {
   }
 
   .landing-hero::after {
-    height: 15vh;
+    height: 11vh;
     background: linear-gradient(
       180deg,
       rgba(10, 15, 17, 0) 0%,
-      rgba(10, 15, 17, 0.08) 24%,
-      rgba(244, 241, 233, 0.68) 72%,
+      rgba(10, 15, 17, 0.05) 38%,
+      rgba(244, 241, 233, 0.4) 78%,
       rgba(244, 241, 233, 1) 100%
     );
   }
