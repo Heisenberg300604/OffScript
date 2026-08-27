@@ -1,321 +1,160 @@
+<div align="center">
+
 # OffScript
 
-## The Problem
+**Research · Think · Speak · Repeat**
 
-A lot of people want to improve their communication skills, but one of the biggest problems is simple:
+OffScript is a daily practice space for becoming more comfortable speaking without a script. It gives you an unexpected topic, lets you research and form a view, then challenges you to speak for at least two minutes in your own words.
 
-> **They don't practice speaking regularly.**
+[![Next.js](https://img.shields.io/badge/Next.js-16.3-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-149eca?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Clerk](https://img.shields.io/badge/Auth-Clerk-6c47ff?logo=clerk&logoColor=white)](https://clerk.com/)
+[![Neon](https://img.shields.io/badge/Database-Neon-00e599?logo=neon&logoColor=black)](https://neon.com/)
 
-Even when someone decides to practice, another question immediately appears:
+</div>
 
-> *"Okay... but what am I supposed to talk about?"*
+<img src="./frontend/public/landing-new.png" alt="OffScript landing page" width="100%" />
 
-People usually end up talking about things they already know or feel comfortable discussing. That doesn't really challenge their ability to think and speak spontaneously.
+## Why OffScript?
 
-Communication improves through practice — especially when you're forced to:
+It is easy to outsource wording, structure, and arguments. OffScript is deliberately built around the opposite habit: encountering a prompt, doing enough research to understand it, and explaining what you think aloud.
 
-* Think about an unfamiliar subject
-* Organize your thoughts quickly
-* Explain an idea clearly
-* Form an opinion
-* Continue speaking without relying on a prepared script
-* Become comfortable hearing your own voice
-* Speak even when you aren't completely sure what to say
+V1 keeps the loop simple: get a topic, speak for two minutes, and return tomorrow.
 
-OffScript aims to make this practice **simple, repeatable, and consistent.**
+## Features
 
----
+- **Unexpected topic generator** — draws a prompt from a curated database, with a lightweight animated reveal.
+- **Research-first practice** — encourages users to investigate the topic before speaking, without supplying a script or generated answer.
+- **Two-minute speaking challenge** — a timer unlocks completion after 120 seconds and continues counting if the speaker wants to go longer.
+- **Optional in-browser recording** — uses the browser’s camera, microphone, and `MediaRecorder` APIs; V1 offers the finished recording as a browser download rather than uploading it to OffScript.
+- **YouTube archive links** — optionally attach an Unlisted YouTube video to a completed challenge. OffScript validates and stores the link; it does not host the video.
+- **Progress that respects timezone** — per-user streaks, totals, history, and a 26-week activity heatmap use the user’s IANA timezone for day boundaries.
+- **Authenticated, user-scoped data** — Clerk handles authentication, while server-side data access and database queries scope every challenge to the signed-in user.
 
-## The Solution
+## How it works
 
-OffScript gives users a randomly generated topic whenever they want to practice.
+1. Sign in and generate a topic.
+2. Research it and form your own perspective.
+3. Start the challenge and speak for at least two minutes.
+4. Complete the session, optionally download the recording, and optionally attach an Unlisted YouTube link.
+5. Review your challenge history, streak, and speaking activity over time.
 
-For example:
+## Tech stack
 
-> **"Should AI-generated content be regulated?"**
+| Area | Technologies |
+| --- | --- |
+| App | Next.js 16, React 19, TypeScript |
+| UI | Tailwind CSS 4, Base UI, shadcn/ui, Lucide |
+| Authentication | Clerk |
+| Data | Neon Serverless Postgres, Drizzle ORM + Drizzle Kit |
+| Validation | Zod |
+| Analytics | Vercel Analytics |
+| Tooling | pnpm, ESLint, TypeScript |
 
-The user can use Google or other resources to understand the topic and gather information.
+## Getting started
 
-Then they have to speak about it.
+### Prerequisites
 
-### The basic rule:
+- Node.js compatible with Next.js 16
+- [pnpm 10](https://pnpm.io/installation)
+- A Neon Postgres database
+- A Clerk application
 
-**Research → Think → Speak → Repeat**
+### Install and configure
 
-The user should speak for a minimum of **2 minutes**.
+From this `frontend` directory:
 
-There is no requirement to give the "correct" opinion.
-
-The purpose is to practice **expressing thoughts clearly and confidently**, especially when the topic isn't something the user prepared for beforehand.
-
----
-
-# Version 1
-
-The first version will intentionally remain simple.
-
-The goal of V1 is to validate one thing:
-
-> **Can a simple daily speaking challenge encourage people to practice communication consistently?**
-
-### 1. Random Topic Generator
-
-The primary feature of OffScript.
-
-Users can generate a completely random topic to speak about.
-
-Topics can range across different categories, including:
-
-* Technology
-* AI
-* Politics
-* Economics
-* Society
-* Philosophy
-* Education
-* Environment
-* Current affairs
-* Everyday life
-* Hypothetical situations
-* Controversial questions
-* Abstract ideas
-
-Example:
-
-> **"Will artificial intelligence make humans less creative?"**
-
-The randomness is intentional.
-
-Users shouldn't always get topics they're comfortable with.
-
----
-
-### 2. Two-Minute Speaking Challenge
-
-Every generated topic comes with a simple challenge:
-
-> **Speak about this topic for at least 2 minutes.**
-
-Users can research the topic before speaking.
-
-However, the purpose is to encourage them to **speak in their own words rather than read a prepared script.**
-
----
-
-### 3. Research Allowed
-
-OffScript does **not** expect users to know everything.
-
-Users are explicitly allowed to research their topic before speaking.
-
-For example:
-
-> **Topic:** "Should nuclear energy replace coal?"
-
-The user can search Google, read articles, understand the subject, form their opinion, and then speak.
-
-The research is part of the process.
-
-The important part is that the final explanation comes from the user.
-
----
-
-### 4. Speaking/Recording Session
-
-Users can start a speaking session after receiving their topic.
-
-The application provides a **minimum 2-minute timer** to encourage users to keep speaking.
-
-The focus is on practicing the act of speaking rather than receiving an AI-generated score.
-
----
-
-### 5. YouTube Unlisted Progress Archive
-
-Users can optionally record their speaking session and upload the video to YouTube as **Unlisted**.
-
-They can then save the video link with their completed challenge.
-
-This gives users a personal archive of their speaking journey without requiring OffScript V1 to build its own video storage infrastructure.
-
-Over time, users can go back and compare:
-
-> **Day 1 vs Day 30**
-
-and see their own progress.
-
----
-
-### 6. Speaking Streak
-
-Users can maintain a daily speaking streak by completing their challenge.
-
-For example:
-
-> 🔥 **14 day streak**
-
-The goal is to encourage consistency rather than perfection.
-
-Missing one day shouldn't mean the entire purpose of the application is lost — the streak is simply a motivational mechanism.
-
----
-
-### 7. GitHub-Style Progress Heatmap
-
-OffScript will include a contribution-style heatmap showing the user's speaking activity.
-
-For example:
-
-```text
-Speaking Activity
-
-Mon  Tue  Wed  Thu  Fri  Sat  Sun
-
-🟩   🟩   ⬜   🟩   🟩   🟩   ⬜
-🟩   🟩   🟩   🟩   ⬜   🟩   🟩
-🟩   🟩   🟩   🟩   🟩   🟩   🟩
+```bash
+pnpm install
+cp .env.example .env.local
 ```
 
-This gives users a visual representation of their consistency.
+Fill in `.env.local` with your Neon pooled connection string and Clerk keys. The complete list of required settings and their descriptions is maintained in [`.env.example`](.env.example).
 
-The idea is inspired by the way GitHub makes developers want to keep contributing.
+Apply the included database migration and seed the prompt catalog:
 
-Here, the contribution is:
-
-> **You spoke today.**
-
----
-
-## What V1 Will NOT Do
-
-Keeping the first version focused is important.
-
-OffScript V1 will **not** attempt to:
-
-* Judge whether someone's opinion is correct
-* Rate someone's intelligence
-* Assign an arbitrary "confidence score"
-* Analyze personality
-* Automatically judge someone's communication ability
-* Replace a human communication coach
-* Become a social media platform
-* Build a complicated AI feedback system
-
-The first version is deliberately simple.
-
-**Generate a topic → research → speak → record → track consistency.**
-
----
-
-## Core Philosophy
-
-OffScript is based on a simple idea:
-
-> **You don't become comfortable speaking by watching videos about communication. You become comfortable by speaking.**
-
-The application is designed to remove the friction between:
-
-**"I want to improve my communication."**
-
-and
-
-**"Okay, let's actually practice."**
-
-No elaborate course.
-
-No long lessons.
-
-No complicated exercises.
-
-Just a topic.
-
-Then:
-
-> **Speak.**
-
----
-
-## V1 User Flow
-
-```text
-Open OffScript
-      ↓
-Generate Random Topic
-      ↓
-Read Topic
-      ↓
-Research Topic (Optional)
-      ↓
-Start 2-Minute Challenge
-      ↓
-Speak
-      ↓
-Complete Challenge
-      ↓
-Optionally Upload Video to YouTube (Unlisted)
-      ↓
-Record Progress
-      ↓
-Update Speaking Streak / Heatmap
+```bash
+pnpm db:migrate
+pnpm db:seed
 ```
 
----
+Start the development server:
 
-## Future Possibilities
+```bash
+pnpm dev
+```
 
-These are intentionally **not part of V1**, but could be explored later if the core concept proves useful:
+Open [http://localhost:3000](http://localhost:3000).
 
-* Different difficulty levels
-* Debate mode
-* Interview mode
-* Presentation mode
-* Impromptu mode with limited preparation time
-* Community challenges
-* Anonymous video sharing
-* Responses to other people's arguments
-* Topic categories
-* Weekly speaking challenges
-* Public speaking leaderboard
-* AI-assisted feedback
-* Speech transcription
-* Filler-word detection
-* Speaking-speed analysis
-* Progress analytics
+### Environment variables
 
-The priority is to **validate the basic speaking loop first** before adding these features.
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Neon Postgres pooled connection string. |
+| `NEXT_PUBLIC_SITE_URL` | Optional canonical public URL used for metadata, sitemap, and robots. |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key. |
+| `CLERK_SECRET_KEY` | Clerk secret key. |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL` | Mounted sign-in route. |
+| `NEXT_PUBLIC_CLERK_SIGN_UP_URL` | Mounted sign-up route. |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL` | Default redirect after sign-in. |
+| `NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL` | Default redirect after sign-up. |
 
----
+`VERCEL_PROJECT_PRODUCTION_URL` is also recognised automatically as a fallback site URL in Vercel environments.
 
-## The Goal
+## Available commands
 
-OffScript isn't trying to turn everyone into a professional speaker.
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Run the development server. |
+| `pnpm build` | Create a production build. |
+| `pnpm start` | Serve the production build. |
+| `pnpm lint` | Run ESLint. |
+| `pnpm typecheck` | Run TypeScript without emitting files. |
+| `pnpm db:generate` | Generate a Drizzle migration from schema changes. |
+| `pnpm db:migrate` | Apply Drizzle migrations. |
+| `pnpm db:push` | Push the schema directly to the configured database. |
+| `pnpm db:studio` | Launch Drizzle Studio. |
+| `pnpm db:seed` | Seed the topic catalog. |
 
-The goal is much simpler:
+## Project structure
 
-> **Make speaking practice easy enough that people actually do it.**
+```text
+frontend/
+├── app/                    # App Router pages, server actions, and auth routes
+│   ├── actions/            # Topic, challenge, and timezone server actions
+│   ├── dashboard/          # Topic generator and today's activity
+│   ├── recording/          # Browser recording and two-minute challenge
+│   ├── history/            # Completed challenge archive
+│   └── progress/           # Streak, totals, and activity heatmap
+├── components/             # Navigation, heatmap, landing, and UI components
+├── db/                     # Drizzle client, schema, migrations, and seed data
+├── lib/                    # Data-access layer, queries, validation, and site config
+├── public/                 # Application images and static assets
+├── proxy.ts                # Clerk route protection
+└── .env.example            # Local configuration template
+```
 
-If someone who was previously uncomfortable speaking can open OffScript every day, receive a completely unexpected topic, and speak about it for two minutes without overthinking it — the product has done its job.
+## Data model and architecture
 
----
+Clerk is the source of truth for identity. On first authenticated use, OffScript creates a small profile row in Neon Postgres for the Clerk user ID and timezone. Completed challenges are stored with a snapshot of their topic text, duration, completion time, timezone-aware calendar date, and optional YouTube URL. This keeps historical sessions intact even if a catalog topic later changes.
 
-## Status
+The app uses Server Components for authenticated pages and Server Actions for topic generation, session completion, archive-link updates, and timezone syncing. The browser only sends a topic ID when completing a challenge; the server reads the topic again before saving it.
 
-🚧 **Version 1 — In Development**
+## Recording and privacy notes
 
-The initial focus is on building and validating the core speaking-practice experience before expanding the product.
+Camera and microphone access is optional. If permission is unavailable, a user can still complete a speaking challenge in practice mode. When recording is enabled, the video is produced in the browser and offered as a download; this V1 does not upload recordings to OffScript. Authentication is provided by Clerk, and challenge data is persisted in Neon Postgres. A YouTube URL is saved only when the user explicitly supplies one after completing a challenge.
 
-## 🛠️ Tech Stack
+## Quality checks
 
-OffScript V1 is intentionally built with a simple, modern stack focused on **performance, SEO, maintainability, and fast development**.
+Before opening a pull request, run:
 
-| Technology           | Purpose                                           |
-| -------------------- | ------------------------------------------------- |
-| **Next.js**          | Full-stack React framework, routing, SSR/SSG, SEO |
-| **TypeScript**       | Type-safe application development                 |
-| **Tailwind CSS**     | Styling and responsive UI                         |
-| **shadcn/ui**        | Reusable UI components                            |
-| **PostgreSQL**       | User, topic, challenge, and progress data         |
-| **Drizzle ORM**      | Type-safe database queries and schema management  |
-| **Vercel**           | Application deployment and hosting                |
-| **Neon**             | Serverless PostgreSQL hosting                     |
-| **YouTube Unlisted** | Optional video storage/progress archive           |
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+## V1 scope
+
+OffScript V1 is a practice tool, not an automated speaking evaluator. It does not generate a script, score opinions, analyse personality, or provide an AI confidence rating. The product is intentionally centred on consistent, self-directed practice.
